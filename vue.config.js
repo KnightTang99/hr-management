@@ -5,7 +5,7 @@ const defaultSettings = require('./src/settings.js')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-
+// 设置标题
 const name = defaultSettings.title || 'vue Admin Template' // page title
 
 // If your port is set to 80,
@@ -35,9 +35,15 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      // 所有以 /api 的接口都会拼接到target路径的后面
+      '/api': {
+        target: 'http://ihrm-java.itheima.net/', // 目标路径
+        changeOrigin: true // 是否开启跨域
+        // pathRewrite: { '^/api': '' } // 所有以/api的路径都去掉/api，并且拼接到target路径后
+      }
     }
-    // 在项目启动前引入mock文件
-    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
