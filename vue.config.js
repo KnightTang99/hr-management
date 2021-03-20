@@ -39,9 +39,9 @@ module.exports = {
     proxy: {
       // 所有以 /api 的接口都会拼接到target路径的后面
       '/api': {
-        target: 'http://ihrm-java.itheima.net/', // 目标路径
+        target: 'http://ihrm-java.itheima.net', // 目标路径
         changeOrigin: true // 是否开启跨域
-        // pathRewrite: { '^/api': '' } // 所有以/api的路径都去掉/api，并且拼接到target路径后
+        // pathRewrite: { '^/api': '' } // 所有包含/api的路径都去掉/api，并且拼接到target路径后
       }
     }
   },

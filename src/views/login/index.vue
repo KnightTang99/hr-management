@@ -46,8 +46,9 @@
 
 <script>
 import { validMobile } from '@/utils/validate'
-import { mapActions } from 'vuex'
-// const mapActions = createNamespacedHelpers('user')
+// import { mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('user')
 export default {
   name: 'Login',
   data() {
@@ -104,7 +105,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['user/login']),
+    // ...mapActions(['user/login']),
+    ...mapActions(['login']),
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -120,11 +122,13 @@ export default {
         if (valid) {
           try {
             this.loading = true
-            await this['user/login'](this.loginForm)
+            // await this['user/login'](this.loginForm) // login就是一个promise
+            await this.login(this.loginForm)
             this.$router.push('/')
           } catch (err) {
             console.log(err)
           } finally {
+            // 不管请求成功与否都会经过这里，并且将loading关闭
             this.loading = false
           }
         }
