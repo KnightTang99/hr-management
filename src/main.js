@@ -11,7 +11,10 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
-
+import * as directives from '@/directives'
+Object.keys(directives).forEach(key => {
+  Vue.directive(key, directives[key])
+})
 import '@/icons' // icon
 import '@/permission' // permission control
 
