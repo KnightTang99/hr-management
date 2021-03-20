@@ -1,6 +1,9 @@
 import axios from 'axios'
 import Message from 'element-ui' // 导入element-ui弹框组件
 import store from '@/store'
+import router from '@/router'
+import { getTimeStamp } from '@/utils/auth'
+const timeout = 3600
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // 从.env.development拿到的开发环境时的接口，为什么不补全接口？？？
   timeout: 5000
@@ -8,6 +11,10 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
+      if (calcTimeStamp()) {
+        store.dispatch('user/logout')
+        router.push('/login')
+      }
       config.headers.Authorization = `Bearer ${store.getters.token}`
     }
     return config
@@ -28,8 +35,18 @@ service.interceptors.response.use(
   },
   error => {
     // 所有非2xx的请求都会走这里
-    Message.error(error.message)
+    if (error.response && error.response.data && error.response.data.code === 10002) {
+      store.dispatch('user/logout')
+      router.push('/login')
+    } else {
+      Message.error(error.message)
+    }
     return Promise.reject(error)
   }
 )
+function calcTimeStamp() {
+  const nowTime = Date.now()
+  const timeStamp = getTimeStamp()
+  return (nowTime - timeStamp) / 1000 > timeout
+}
 export default service

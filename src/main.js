@@ -11,7 +11,9 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+// 导出所有的directives，是一个对象
 import * as directives from '@/directives'
+// 遍历对象，给每一个属性都全局注册，也就是注册了所有的自定义指令
 Object.keys(directives).forEach(key => {
   Vue.directive(key, directives[key])
 })

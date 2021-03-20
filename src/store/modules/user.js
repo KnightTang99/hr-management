@@ -1,6 +1,6 @@
 import { getUserAvatar, getUserInfo, login } from '@/api/user'
 
-import { getToken, setToken, removeToken } from '@/utils/auth' // 导入本地持久化方法
+import { getToken, setToken, removeToken, setTimeStamp } from '@/utils/auth' // 导入本地持久化方法
 const state = {
   token: getToken(), // 初始化vuex从本地获取token
   userInfo: {} // 定义用户信息的空对象，不能设置为null，当拿userInfo里面的信息的时候会报错
@@ -27,6 +27,7 @@ const actions = {
     const res = await login(data) // await 后面的函数是一个微任务，只有等await执行完毕才能执行下面的代码
     // 不进行判断是因为在request中已经判断过
     context.commit('setToken', res)
+    setTimeStamp()
   },
   // 获取用户信息的方法
   async getUserInfo(context) {
