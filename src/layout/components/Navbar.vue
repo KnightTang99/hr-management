@@ -46,7 +46,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['sidebar', 'avatar', 'userInfo'])
+    ...mapGetters(['sidebar', 'userInfo'])
   },
   methods: {
     toggleSideBar() {

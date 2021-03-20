@@ -33,9 +33,8 @@ const actions = {
   async getUserInfo(context) {
     const result = await getUserInfo()
     const detail = await getUserAvatar(result.userId)
-    const baseResult = { ...result, ...detail }
-    context.commit('setUserInfo', baseResult)
-    return baseResult
+    context.commit('setUserInfo', { ...result, ...detail })
+    return result
   },
   // 退出登录
   logout(context) {

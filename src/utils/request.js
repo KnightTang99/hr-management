@@ -14,6 +14,7 @@ service.interceptors.request.use(
       if (calcTimeStamp()) {
         store.dispatch('user/logout')
         router.push('/login')
+        return Promise.reject(new Error('请求超时,请重试！'))
       }
       config.headers.Authorization = `Bearer ${store.getters.token}`
     }
@@ -39,11 +40,13 @@ service.interceptors.response.use(
       store.dispatch('user/logout')
       router.push('/login')
     } else {
+      console.log(error, 9999)
       Message.error(error.message)
     }
     return Promise.reject(error)
   }
 )
+// 计算时间戳的函数
 function calcTimeStamp() {
   const nowTime = Date.now()
   const timeStamp = getTimeStamp()
