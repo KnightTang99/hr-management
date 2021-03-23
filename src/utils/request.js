@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Message from 'element-ui' // 导入element-ui弹框组件
+import { Message } from 'element-ui' // 导入element-ui弹框组件
 import store from '@/store'
 import router from '@/router'
 import { getTimeStamp } from '@/utils/auth'
@@ -11,6 +11,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
+      // 计算时间戳
       if (calcTimeStamp()) {
         store.dispatch('user/logout')
         router.push('/login')
@@ -40,7 +41,6 @@ service.interceptors.response.use(
       store.dispatch('user/logout')
       router.push('/login')
     } else {
-      console.log(error, 9999)
       Message.error(error.message)
     }
     return Promise.reject(error)
