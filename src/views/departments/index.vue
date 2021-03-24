@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div v-loading="loading" class="dashboard-container">
     <div class="app-container">
       <el-card class="tree-card">
         <tree-tools :tree-data="company" :is-root="true" @addDialog="addDialogShow" />
@@ -36,7 +36,8 @@ export default {
         label: 'name' // 表示 从这个属性显示内容
       },
       isDialogShow: false,
-      itemData: null
+      itemData: null,
+      loading: false
     }
   },
   created() {
@@ -44,9 +45,11 @@ export default {
   },
   methods: {
     async getDepartments() {
+      this.loading = true
       const res = await getDepartments()
       this.company = { name: res.companyName, manager: '负责人', id: '' } // 这里声明id是因为头部的验证需要id，不声明就为undefined
       this.departs = transArrayToTree(res.depts, '')
+      this.loading = false
     },
     // 添加的弹框
     addDialogShow(itemData) {
