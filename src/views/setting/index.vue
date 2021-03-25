@@ -125,8 +125,8 @@ export default {
     },
     // 获取角色详情
     getRoleDetail(id) {
+      this.$refs.roleDialogRef.getRoleDetail(id) // 调用子组件内的方法
       this.addRoleDialog = true
-      this.$refs.roleDialogRef.getRoleDetail(id)
     }
   }
 }

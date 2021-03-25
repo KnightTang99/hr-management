@@ -109,6 +109,7 @@ export function param2Obj(url) {
 }
 // 递归将数组转换成树状结构
 export function transArrayToTree(list, rootValue) {
+  // rootValue 是最开始的查找条件
   const arr = []
   list.forEach(item => {
     if (item.pid === rootValue) {

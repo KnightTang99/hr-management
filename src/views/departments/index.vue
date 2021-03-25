@@ -44,6 +44,7 @@ export default {
     this.getDepartments()
   },
   methods: {
+    // 获取部门架构列表
     async getDepartments() {
       this.loading = true
       const res = await getDepartments()
@@ -53,8 +54,8 @@ export default {
     },
     // 添加的弹框
     addDialogShow(itemData) {
-      this.isDialogShow = true
-      this.itemData = itemData
+      this.isDialogShow = true // 这里是为了传参让弹框显示
+      this.itemData = itemData // 记下点击的是哪个节点
     },
     // 编辑的弹框
     editDialogShow(itemData) {
