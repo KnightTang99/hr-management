@@ -13,6 +13,18 @@
         <el-table :data="employeeList">
           <el-table-column label="序号" type="index" width="150" />
           <el-table-column label="姓名" prop="username" sortable="" width="150" />
+          <el-table-column label="头像" sortable width="150" align="center">
+            <template slot-scope="{ row }">
+              <img
+                v-imagerror="require('@/assets/common/bigUserHeader.png')"
+                :src="row.staffPhoto"
+                alt=""
+                style="border-radius: 50%; width: 100px; height: 100px; padding: 10px"
+                @click="showQrCode(row.staffPhoto)"
+              />
+            </template>
+          </el-table-column>
+
           <el-table-column label="手机号" prop="mobile" sortable="" width="150" />
           <el-table-column label="工号" prop="workNumber" sortable width="120" />
           <el-table-column label="聘用形式" prop="formOfEmployment" sortable :formatter="formatEmployment" width="150" />
@@ -30,7 +42,7 @@
           </el-table-column>
           <el-table-column label="操作" type="index" width="260" align="center" fixed="right">
             <template slot-scope="{ row }">
-              <el-button size="mini" type="text">查看</el-button>
+              <el-button size="mini" type="text" @click="$router.push(`employees/detail/${row.id}`)">查看</el-button>
               <el-button size="mini" type="text">转正</el-button>
               <el-button size="mini" type="text">调岗</el-button>
               <el-button size="mini" type="text">离职</el-button>
@@ -44,6 +56,11 @@
         </el-row>
       </el-card>
       <add-employee :add-dialog.sync="addEmployeeDialogVisible" />
+      <el-dialog title="二维码" :visible.sync="showCanvas" width="40%">
+        <el-row type="flex" justify="center">
+          <canvas ref="avatarCanvas"></canvas>
+        </el-row>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -53,6 +70,7 @@ import { getEmployeeList, removeEmployeeItem } from '@/api/employees'
 import employeeInfo from '@/api/constant/employees'
 import addEmployee from './components/add-Employee.vue'
 import { formatDate } from '@/filters'
+import qrCode from 'qrcode'
 export default {
   name: 'Employee',
   components: { addEmployee },
@@ -63,7 +81,8 @@ export default {
       size: 10,
       total: 0,
       addEmployeeDialogVisible: false,
-      loading: false
+      loading: false,
+      showCanvas: false
     }
   },
   created() {
@@ -155,6 +174,16 @@ export default {
           return item[headers[key]]
         })
       })
+    },
+    showQrCode(url) {
+      if (url) {
+        this.showCanvas = true
+        this.$nextTick(() => {
+          qrCode.toCanvas(this.$refs.avatarCanvas, url)
+        })
+      } else {
+        this.$message.warning('用户还未上传头像')
+      }
     }
   }
 }
