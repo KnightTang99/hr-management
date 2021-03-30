@@ -12,16 +12,17 @@
                 <el-input v-model="userInfo.newPassword" style="width:300px" type="password" placeholder="请输入新密码" />
               </el-form-item>
               <el-form-item>
-                <el-button>重置</el-button>
+                <el-button @click="resetForm">重置</el-button>
                 <el-button type="primary" @click="saveBaseInfoById">保存</el-button>
               </el-form-item>
             </el-form>
           </el-tab-pane>
           <el-tab-pane label="个人详情">
+            <!-- 打印的按钮 -->
             <el-row type="flex" justify="end">
               <el-tooltip content="打印个人基本信息">
                 <router-link :to="`/employees/print/${$route.params.id}?type=personal`">
-                  <i class="el-icon-printer" />
+                  <i class="el-icon-printer"></i>
                 </router-link>
               </el-tooltip>
             </el-row>
@@ -29,13 +30,15 @@
             <!-- <personal-info /> -->
           </el-tab-pane>
           <el-tab-pane label="岗位信息">
+            <!-- 打印按钮 -->
             <el-row type="flex" justify="end">
               <el-tooltip content="打印岗位信息">
                 <router-link :to="`/employees/print/${$route.params.id}?type=job`">
-                  <i class="el-icon-printer" />
+                  <i class="el-icon-printer"></i>
                 </router-link>
               </el-tooltip>
             </el-row>
+            <!-- 详情组件 -->
             <!-- 动态组件 is属性绑定组件名称，一般为变量 -->
             <component :is="jobComponent" />
             <!-- <job-info /> -->
@@ -69,7 +72,8 @@ export default {
           { required: true, trigger: 'blur', message: '用户密码不能为空' },
           { min: 6, max: 9, trigger: 'blur', message: '密码长度6-9位' }
         ]
-      }
+      },
+      resetUsername: ''
     }
   },
   computed: {},
@@ -83,6 +87,7 @@ export default {
     async getBaseInfoById() {
       this.userInfo = await getBaseInfoById(this.$route.params.id)
       this.userInfo = { ...this.userInfo, ...(await getBaseInfoById(this.$route.params.id)) }
+      this.resetUsername = this.userInfo.username
     },
     // 保存指定员工的信息
     saveBaseInfoById() {
@@ -93,6 +98,10 @@ export default {
           this.$router.back()
         }
       })
+    },
+    // 重置表单
+    resetForm() {
+      this.userInfo = { username: this.resetUsername }
     }
   }
 }

@@ -82,3 +82,11 @@ export function saveJobInfo(data) {
     data
   })
 }
+// 给员工分配角色
+export function assignRole(data) {
+  return request({
+    url: '/sys/user/assignRoles',
+    method: 'PUT',
+    data
+  })
+}

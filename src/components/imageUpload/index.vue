@@ -1,5 +1,6 @@
 <template>
   <div class="ImageUpload">
+    <!-- list-type 用来控制上传控件的样式 -->
     <el-upload
       list-type="picture-card"
       action="#"
@@ -49,19 +50,22 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    // 图片预览，可以拿到图片的信息
     preview(file) {
       this.imgUrl = file.url
       this.showDialog = true
     },
     // 删除预览的图片
     removeImg(file, fileList) {
+      // 这里的fileList是移除以后剩下的文件列表
       this.fileList = fileList
     },
     // 添加图片信息
     changeFile(file, fileList) {
+      // 添加或上传成功触发
       this.fileList = fileList.map(item => item)
     },
-    // 控制上传图片的类型和大小
+    // 上传之前判断图片的类型和大小，控制上传图片的类型和大小
     beforeUpload(file) {
       const types = ['image/jpeg', 'image/gif', 'image/bmp', 'image/png']
       if (!types.some(item => item === file.type)) {
@@ -73,11 +77,13 @@ export default {
         this.$message.error('图片大小最大不能超过5M')
         return false
       }
+      // 记下当前上传的图片的id，为后面获取指定图片做铺垫
       this.currentFileUid = file.uid
+      // 上传进度
       this.showProgress = true
       return true
     },
-    // 覆盖默认的上传图片
+    // 覆盖默认的action上传图片的方式
     upload(params) {
       if (params.file) {
         cos.putObject(
