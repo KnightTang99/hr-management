@@ -2,7 +2,9 @@
   <div class="dashboard-container">
     <div class="dashboard-text">
       <el-card>
+        <!-- v-model绑定的是被选中的tab项 -->
         <el-tabs v-model="activeName">
+          <!-- 账号设置tab栏 -->
           <el-tab-pane label="登陆账号设置" name="first">
             <el-form ref="userInfoFormRef" :model="userInfo" :rules="userInfoFormRules" label-width="120px" style="margin-left: 120px; margin-top:30px">
               <el-form-item label="姓名：" prop="username">
@@ -17,6 +19,7 @@
               </el-form-item>
             </el-form>
           </el-tab-pane>
+          <!-- 个人详情tab栏 -->
           <el-tab-pane label="个人详情">
             <!-- 打印的按钮 -->
             <el-row type="flex" justify="end">
@@ -29,6 +32,7 @@
             <component :is="personalComponent" />
             <!-- <personal-info /> -->
           </el-tab-pane>
+          <!-- 岗位信息tab栏 -->
           <el-tab-pane label="岗位信息">
             <!-- 打印按钮 -->
             <el-row type="flex" justify="end">

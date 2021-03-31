@@ -1,7 +1,7 @@
 import layout from '@/layout/index'
 export default {
   path: '/permission',
-  name: 'permission',
+  name: 'permissions',
   component: layout,
   children: [
     {

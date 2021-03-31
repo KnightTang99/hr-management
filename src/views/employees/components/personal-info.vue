@@ -19,7 +19,7 @@
       <el-row class="inline-info">
         <el-col :span="12">
           <el-form-item label="姓名">
-            <el-input v-model="userInfo.username" class="inputW" disabled />
+            <el-input v-model="userInfo.username" class="inputW" :disabled="usernameInputDisabled" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -32,7 +32,7 @@
       <el-row class="inline-info">
         <el-col :span="12">
           <el-form-item label="手机">
-            <el-input v-model="userInfo.mobile" disabled />
+            <el-input v-model="userInfo.mobile" :disabled="mobileInputDisabled" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -306,7 +306,9 @@ export default {
         proofOfDepartureOfFormerCompany: '', // 前公司离职证明
         remarks: '' // 备注
       },
-      showUploadBtn: false
+      showUploadBtn: false,
+      mobileInputDisabled: true,
+      usernameInputDisabled: true
     }
   },
   created() {

@@ -13,9 +13,13 @@ router.beforeEach(async (to, from, next) => {
     } else {
       if (!store.getters.userInfo.username) {
         // 不能直接判断空对象userInfo
-        await store.dispatch('user/getUserInfo')
+        const { roles } = await store.dispatch('user/getUserInfo')
+        const routes = await store.dispatch('permission/filterRoutes', roles.menus)
+        router.addRoutes([...routes, { path: '*', redirect: '/404', hidden: true }]) // 添加路由以后还需要重新跳转一下，因为next()没有参数的话是直接放行，这时候路由表里面还没有你刚添加的路由，next()有值的话就会中断当前路由，重新进入路由导航
+        next(to.path)
+      } else {
+        next()
       }
-      next()
     }
   } else {
     if (whiteList.indexOf(to.path) > -1) {

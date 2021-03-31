@@ -28,6 +28,9 @@ Object.keys(filters).forEach(key => {
 
 import '@/icons' // icon
 import '@/permission' // permission control
+// 全局混入
+import checkPermission from '@/mixin/checkPermission'
+Vue.mixin(checkPermission)
 
 /**
  * If you don't want to use mock-server

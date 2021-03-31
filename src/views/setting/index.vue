@@ -37,16 +37,16 @@
             <el-alert title="对公司名称、公司地址、营业执照、公司地区的更新，将使得公司资料被重新审核，请谨慎修改" type="info" show-icon :closable="false" />
             <el-form label-width="120px" style="margin-top:50px" :model="companyInfo">
               <el-form-item label="公司名称">
-                <el-input v-model="companyInfo.name" disabled style="width:400px" />
+                <el-input v-model="companyInfo.name" :disabled="true" style="width:400px" />
               </el-form-item>
               <el-form-item label="公司地址">
-                <el-input v-model="companyInfo.companyAddress" disabled style="width:400px" />
+                <el-input v-model="companyInfo.companyAddress" :disabled="true" style="width:400px" />
               </el-form-item>
               <el-form-item label="邮箱">
-                <el-input v-model="companyInfo.mailbox" disabled style="width:400px" />
+                <el-input v-model="companyInfo.mailbox" :disabled="true" style="width:400px" />
               </el-form-item>
               <el-form-item label="备注">
-                <el-input v-model="companyInfo.remarks" type="textarea" :rows="3" disabled style="width:400px" />
+                <el-input v-model="companyInfo.remarks" type="textarea" :rows="3" :disabled="true" style="width:400px" />
               </el-form-item>
             </el-form>
           </el-tab-pane>

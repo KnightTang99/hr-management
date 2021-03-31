@@ -1,7 +1,7 @@
 import layout from '@/layout/index'
 export default {
   path: '/setting',
-  name: 'setting',
+  name: 'settings',
   component: layout,
   children: [
     {

@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       roleList: [],
-      roleIds: []
+      roleIds: [] // 多选框所有选中的值的数组，值的类型由label决定
     }
   },
   computed: {},
@@ -41,7 +41,7 @@ export default {
   },
   mounted() {},
   methods: {
-    // 获取角色列表
+    // 获取所有角色列表
     async getRoles() {
       const { rows } = await getRoles({
         page: 1,
@@ -56,6 +56,7 @@ export default {
     },
     // 关闭弹层
     close() {
+      this.roleIds = []
       this.$emit('update:showRoleDialog', false) // 不需要清空roleIds ，因为每次点击都会给他重新赋值
     },
     // 更新员工角色

@@ -1,0 +1,11 @@
+export const employees = 'employees' // 可访问员工页面
+export const salarys = 'salarys' // 可访问薪酬页面
+export const settings = 'settings' // 可访问公司设置页面
+export const attendances = 'attendances' // 可访问出勤页面
+export const permissions = 'permissions' // 可访问权限设置页面
+export const departments = 'departments' // 可访问组织架构页面
+export const approvals = 'approvals' // 可访问审批页面
+export const social = 'social' // 可访问社保页面
+export const pointUserAdd = 'POINT-USER-ADD' // 可以访问添加员工权限
+export const pointUserUpdate = 'POINT-USER-UPDATE' // 可以访问编辑员工权限
+export const userBecomeBut = 'become-but' // 可以访问员工转正权限

@@ -27,7 +27,7 @@
           <el-date-picker v-model="formData.dateOfCorrection" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" />
         </el-form-item> -->
         <el-form-item label="转正状态">
-          <el-select v-model="formData.stateOfCorrection" placeholder="请选择" disabled>
+          <el-select v-model="formData.stateOfCorrection" placeholder="请选择" :disabled="true">
             <el-option v-for="item in EmployeeEnum.stateOfCorrection" :key="item.value" :value="item.value" />
           </el-select>
         </el-form-item>
@@ -54,7 +54,7 @@
           <el-date-picker v-model="formData.workingTimeForTheFirstTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" />
         </el-form-item>
         <el-form-item label="调整工龄">
-          <el-input v-model="formData.adjustmentOfLengthOfService" placeholder="0.00年" class="inputW" disabled />
+          <el-input v-model="formData.adjustmentOfLengthOfService" placeholder="0.00年" class="inputW" :disabled="disabled" />
         </el-form-item>
       </div>
       <!-- 合同信息 -->
@@ -152,7 +152,8 @@ export default {
         workMailbox: '', // 工作邮箱
         workingCity: '', // 工作城市
         workingTimeForTheFirstTime: '' // 首次参加工作时间
-      }
+      },
+      disabled: true
     }
   },
   created() {

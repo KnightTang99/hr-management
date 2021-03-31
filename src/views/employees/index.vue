@@ -6,7 +6,7 @@
         <template v-slot:after>
           <el-button type="success" size="small" @click="$router.push('/import')">Excel导入</el-button>
           <el-button type="danger" size="small" @click="exportData">导出</el-button>
-          <el-button type="primary" size="small" @click="addEmployeeDialogVisible = true">新增员工</el-button>
+          <el-button v-if="checkPermission('POINT-USER-ADD')" type="primary" size="small" @click="addEmployeeDialogVisible = true">新增员工</el-button>
         </template>
       </page-tools>
       <el-card>
@@ -61,6 +61,7 @@
           <canvas ref="avatarCanvas"></canvas>
         </el-row>
       </el-dialog>
+      <!-- 查看角色弹框 -->
       <assign-role ref="assignRole" :show-role-dialog.sync="showRoleDialog" :user-id="userId" />
     </div>
   </div>
@@ -191,8 +192,8 @@ export default {
     },
     // 编辑角色权限
     async editRole(id) {
-      this.userId = id
-      await this.$refs.assignRole.getBaseInfoById(id)
+      this.userId = id // 保存当前用户的id
+      await this.$refs.assignRole.getBaseInfoById(id) // 调用子组件的方法，获取用户对应的角色列表
       this.showRoleDialog = true
     }
   }

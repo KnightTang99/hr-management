@@ -1,6 +1,7 @@
 import { getUserAvatar, getUserInfo, login } from '@/api/user'
 
 import { getToken, setToken, removeToken, setTimeStamp } from '@/utils/auth' // 导入本地持久化方法
+import { resetRouter } from '@/router'
 const state = {
   token: getToken(), // 初始化vuex从本地获取token
   userInfo: {} // 定义用户信息的空对象，不能设置为null，当拿userInfo里面的信息的时候会报错
@@ -40,6 +41,8 @@ const actions = {
   logout(context) {
     context.commit('removeToken')
     context.commit('removeUserInfo')
+    resetRouter()
+    context.commit('permission/setRoutes', [], { root: true })
   }
 }
 export default {
