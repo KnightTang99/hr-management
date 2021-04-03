@@ -22,3 +22,4 @@ export function getUserAvatar(id) {
 }
 
 export function logout() {}
+export function getUserDetailById() {}

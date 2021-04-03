@@ -359,3 +359,6 @@ export function getBlob(response) {
 export function imgHandle(obj) {
   return window.URL.createObjectURL(obj)
 }
+export function getInteger() {}
+export function importFilexml() {}
+export function getIntegerPoint() {}

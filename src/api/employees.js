@@ -90,3 +90,4 @@ export function assignRole(data) {
     data
   })
 }
+export function getPersonalDetail() {}

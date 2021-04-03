@@ -9,6 +9,7 @@ import attendancesRouter from './modules/attendances'
 import salarysRouter from './modules/salarys'
 import settingRouter from './modules/setting'
 import socialRouter from './modules/social'
+import userRouter from './modules/user'
 Vue.use(Router)
 
 /* Layout */
@@ -74,14 +75,16 @@ export const constantRoutes = [
         component: () => import('@/views/import')
       }
     ]
-  }
+  },
+  userRouter
   // 404 page must be placed at the end !!!
 ]
 // 设置动态路由数组
 export const asyncRoutes = [approvalsRouter, departmentsRouter, employeesRouter, permissionRouter, attendancesRouter, salarysRouter, settingRouter, socialRouter]
 const createRouter = () =>
   new Router({
-    // mode: 'history', // require service support
+    mode: 'history', // require service support,区别在于hash模式不论怎么修改地址，只要不刷新，就不会发起请求
+    base: 'hr/',
     scrollBehavior: () => ({ y: 0 }),
     routes: [...constantRoutes]
   })
